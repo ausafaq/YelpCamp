@@ -21,15 +21,14 @@ app.get("/", (req, res) => {
     res.render("landing");
 });
 
-var campgrounds = [
-    {name: "Salmon Creek", image: "https://farm9.staticflickr.com/8167/7121865553_e1c6a31f07.jpg"},
-    {name: "Dodge Ridge", image: "https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg"},
-    {name: "Granite Hill", image: "https://farm9.staticflickr.com/8167/7121865553_e1c6a31f07.jpg"}
-]
-
 app.get("/campgrounds", (req, res) => {
-
-    res.render("campgrounds", {campgrounds: campgrounds});
+    Campground.find({}, (err, allCampgrounds) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.render("campgrounds", {campgrounds: allCampgrounds});
+        }
+    });
 });
 
 app.post("/campgrounds", (req, res) => {
