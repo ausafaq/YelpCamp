@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost/yelp_camp",  {useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/yelp_camp",  {useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
@@ -11,7 +11,8 @@ app.set("view engine", "ejs");
 // SCHEMA SETUP
 var campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 var Campground = mongoose.model("Campground", campgroundSchema);
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
     res.render("landing");
 });
 
+// INDEX - show all campgrounds
 app.get("/campgrounds", (req, res) => {
     Campground.find({}, (err, allCampgrounds) => {
         if(err){
@@ -31,6 +33,7 @@ app.get("/campgrounds", (req, res) => {
     });
 });
 
+// CREATE - add new campground to DB
 app.post("/campgrounds", (req, res) => {
     var name = req.body.name;
     var image = req.body.image;
@@ -45,8 +48,14 @@ app.post("/campgrounds", (req, res) => {
     });
 });
 
+// NEW - show form to create new campground
 app.get("/campgrounds/new", (req, res) => {
-    res.render("new.ejs");
+    res.render("new");
+});
+
+// SHOW - shows more info about one campground
+app.get("campgrounds/:id", (req, res) => {
+    res.render("show");
 });
 
 app.listen(3000, () => console.log(`Listening on port 3000`));
