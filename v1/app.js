@@ -35,8 +35,14 @@ app.post("/campgrounds", (req, res) => {
     var name = req.body.name;
     var image = req.body.image;
     var newCampground = {name: name, image: image};
-    campgrounds.push(newCampground);
-    res.redirect("/campgrounds");
+    Campground.create(newCampground, (err, newlyCreated) => {
+        if(err) {
+            console.log(err);
+        } else {
+            // redirect back to campgrounds
+            res.redirect("/campgrounds");
+        }
+    });
 });
 
 app.get("/campgrounds/new", (req, res) => {
