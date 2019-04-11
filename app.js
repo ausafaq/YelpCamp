@@ -58,4 +58,13 @@ app.get("/campgrounds/:id", (req, res) => {
     })
 });
 
+// =================
+// COMMENT ROUTES
+// =================
+
+app.get("/campgrounds/:id/comments/new", (req, res) => {
+    res.send("This will be our comment form!");
+});
+
+
 app.listen(3000, () => console.log(`Listening on port 3000`));
