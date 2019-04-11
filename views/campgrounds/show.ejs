@@ -3,11 +3,23 @@
 <p><%= campground.name %></p>
 
 <img src="<%= campground.image %>">
+
 <p><%= campground.description %></p>
+
+<p>
+    <a class = "btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add New Comment</a>
+</p>
+
 <% campground.comments.forEach(function(comment){ %>
-    <p>
-        <strong><%= comment.author %></strong> - <%= comment.text %>
-    </p>
+    <div class="row">
+        <div class="col-md-12">
+            <%= comment.author %>
+            <span class="float-right">10 days ago</span>
+            <p>
+                <%= comment.text %>
+            </p>
+        </div>
+    </div>
 <% }) %>
 
 <% include ../partials/footer %>
