@@ -3,7 +3,7 @@ const app        = express();
 const bodyParser = require("body-parser");
 const mongoose   = require("mongoose");
 const Campground = require("./models/campground");
-const Comment = require("./models/comment");
+const Comment    = require("./models/comment");
 const seedDB     = require("./seeds");
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp_v4",  {useNewUrlParser: true });
