@@ -131,4 +131,24 @@ app.post("/register", (req, res) => {
     });
 });
 
+// show login form
+app.get("/login", (req, res) => {
+    res.render("login");
+});
+
+// handling login logic
+app.post("/login", passport.authenticate("local", 
+    {
+        successRedirect: "/campgrounds",
+        failureRedirect: "/login"
+
+    }), (req, res) => {
+});
+
+// logout route
+app.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/campgrounds");
+});
+
 app.listen(3000, () => console.log(`Listening on port 3000`));
