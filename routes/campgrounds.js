@@ -14,23 +14,28 @@ router.get("/", (req, res) => {
 });
 
 // CREATE - add new campground to DB
-router.post("/", (req, res) => {
+router.post("/", isLoggedIn, (req, res) => {
     var name = req.body.name;
     var image = req.body.image;
     var desc = req.body.description;
-    var newCampground = {name: name, image: image, description: desc};
+    var author = {
+        id: req.user.id,
+        username: req.user.username
+    }
+    var newCampground = {name: name, image: image, description: desc, author: author};
     Campground.create(newCampground, (err, newlyCreated) => {
         if(err) {
             console.log(err);
         } else {
             // redirect back to campgrounds
+            console.log(newlyCreated);
             res.redirect("/campgrounds");
         }
     });
 });
 
 // NEW - show form to create new campground
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
     res.render("campgrounds/new");
 });
 
