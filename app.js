@@ -2,6 +2,7 @@ const express        = require("express"),
       app            = express(),
       bodyParser     = require("body-parser"),
       mongoose       = require("mongoose"),
+      flash          = require("connect-flash"),
       passport       = require("passport"),
       LocalStrategy  = require("passport-local"),
       methodOverride = require("method-override"),
@@ -15,6 +16,7 @@ const commentRoutes    = require("./routes/comments"),
       campgroundRoutes = require("./routes/campgrounds"),
       indexRoutes      = require("./routes/index");
 
+app.use(flash());
 mongoose.connect("mongodb://localhost:27017/yelp_camp_v4",  {useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
